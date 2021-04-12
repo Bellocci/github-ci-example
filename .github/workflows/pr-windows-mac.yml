@@ -10,7 +10,7 @@ jobs:
       strategy:
          matrix:
             # test against several OSes:
-            os: {macos-latest, windows-latest}
+            os: [macos-latest, windows-latest]
       
       name: Build with Java 8 on ${{ matrix.os }}
       steps:
