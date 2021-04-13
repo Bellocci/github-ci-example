@@ -27,7 +27,7 @@ jobs:
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
            restore-keys: ${{ runner.os }}-m2-
       - name: Build with Maven
-        run: run: mvn -f exampleCI/pom.xml clean verify
+        run: mvn -f exampleCI/pom.xml clean verify
       - name: Generate JUnit Report
         run: >
           mvn -f exampleCI/pom.xml
