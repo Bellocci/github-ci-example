@@ -54,16 +54,16 @@
   
   <profiles>
   	<profile>
-  		<id>jacoco</id>
-  		<build>
-  		 <plugins>
-  		   <plugin>
-  		     <!-- configured in pluginManagement -->
-			 <groupId>org.jacoco</groupId>
-			 <artifactId>jacoco-maven-plugin</artifactId>
-  		   </plugin>
-  		 </plugins>
-  		</build>
+  	  <id>jacoco</id>
+  	  <build>
+  	    <plugins>
+          <plugin>
+  		    <!-- configured in pluginManagement -->
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+  		  </plugin>
+  		</plugins>
+  	  </build>
   	</profile>
   </profiles>
   
