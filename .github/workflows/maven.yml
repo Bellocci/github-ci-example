@@ -15,11 +15,13 @@ jobs:
 
       name: Build with Java ${{ matrix.java }} on Linux
       steps:
+      # Allow to import the repository on virtual environment
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v1
         with:
            java-version: ${{ matrix.java }}
+      # Allow to import all .m2 directory, in this way we don't download all dependencies and plugins 
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -28,6 +30,7 @@ jobs:
            restore-keys: ${{ runner.os }}-m2-
       - name: Build with Maven
         run: mvn -f exampleCI/pom.xml clean verify
+      # Allow to generate JUnit Report even if we have a failure or error for one o more tests.
       - name: Generate JUnit Report
         run: >
           mvn -f exampleCI/pom.xml
