@@ -8,6 +8,8 @@ on:
 jobs:
    build:
       runs-on: ubuntu-latest
+      env:
+         workdir: exampleCI
       strategy:
          # test against several Java versions:
          # Additional-maven-args allow to active jacoco profile only for java 8
@@ -15,10 +17,9 @@ jobs:
             include:
                - java: 8
                  additional-maven-args: >
-                    -Pjacoco 
+                    -Pcoveralls 
                     -DrepoToken=$COVERALLS_REPO_TOKEN
                     -DpullRequest=${{ github.event.pull_request.number }}
-                    coveralls:report
                - java: 11
 
       name: Build with Java ${{ matrix.java }} on Linux
@@ -34,21 +35,30 @@ jobs:
         uses: actions/cache@v2
         with:
            path: ~/.m2
-           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.yml') }}
            restore-keys: ${{ runner.os }}-m2-
       # Using profile jacoco we can perform code coverage in the GitHub Actions workflow
       # Add environment variabile for sent coverage report to Coveralls from GitHub Actions workflow
       - name: Build with Maven
+      # Removed from mvn -f exampleCI/pom.xml clean verify
+      #
+      # verify: because we don't storing the target folder in Git repository. Moreover a job is executed
+      # by GitHub Actions it always uses a fresh new virtual environment so there is nothing to clean
+      # 
+      # -f exampleCI/pom.xml: To avoid the use of -f ,which leads to a long command, 
+      # we can use the working-directory keyword of run:,which allows us to specify the working directory
+      # where the command will be executed.
+      # If we want to further enforce consistency, we could declare a job level environment variable: workdir
         run: >
-          mvn -f exampleCI/pom.xml
-          clean verify ${{ matrix.additional-maven-args }}
+          mvn verify ${{ matrix.additional-maven-args }}
+        working-directory: ${{ env.workdir }}
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
       # Allow to generate JUnit Report even if we have a failure or error for one o more tests.
       - name: Generate JUnit Report
         run: >
-          mvn -f exampleCI/pom.xml
-          surefire-report:report-only site:site -DgenerateReports=false
+          mvn surefire-report:report-only site:site -DgenerateReports=false
+        working-directory: ${{ env.workdir }}
         if: ${{ always() }}
       - name: Archive JUnit Report
         uses: actions/upload-artifact@v2
