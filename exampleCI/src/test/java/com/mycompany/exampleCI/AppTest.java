@@ -26,6 +26,6 @@ public class AppTest {
 	
 	@Test
 	public void testDoubleTheNumber() {
-		assertEquals("4", app.doubleTheNumber(2));
+		assertEquals(4, app.doubleTheNumber(2));
 	}
 }
