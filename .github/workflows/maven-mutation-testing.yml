@@ -25,16 +25,12 @@ jobs:
          - name: Build with Maven
            run: mvn verify -Pmutation-testing
            working-directory: exampleCI
-         - name: Generate mutation-testing report
-           run: mvn surefire-report:report-only site:site -DgenerateReports=false
-           working-directory: exampleCI
-           if: ${{ always()}}
          - name: Archive mutation-testing report
            uses: actions/upload-artifact@v2
            if: ${{ always() }}
            with:
               name: surefire-report-jdk-8-mutation-testing
-              path: '**/target/site/pit-reports'
+              path: '**/target/pit-reports'
            
            
            
