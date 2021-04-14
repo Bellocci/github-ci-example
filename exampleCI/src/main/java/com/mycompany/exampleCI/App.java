@@ -12,4 +12,8 @@ public class App {
 	public String sayHello() {
 		return sayHello(null);
 	}
+
+	public int doubleTheNumber(int number) {
+		return number * 2;
+	}
 }
