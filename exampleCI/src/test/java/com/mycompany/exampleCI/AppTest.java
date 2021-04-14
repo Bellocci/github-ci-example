@@ -23,4 +23,9 @@ public class AppTest {
 	public void testSayHelloWithName() {
 		assertEquals("Hello World", app.sayHello("World"));
 	}
+	
+	@Test
+	public void testDoubleTheNumber() {
+		assertEquals("4", app.doubleTheNumber(2));
+	}
 }
