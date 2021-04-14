@@ -34,7 +34,7 @@ jobs:
            if: ${{ always() }}
            with:
               name: surefire-report-jdk-8-mutation-testing
-              path: '**/target/pit-reports'
+              path: '**/target/site/pit-reports'
            
            
            
