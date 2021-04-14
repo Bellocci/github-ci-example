@@ -1,4 +1,4 @@
 # github-ci-example
 Repository created for learn how to use GitHub Actions
 
-[![Java CI with Maven in Linux](https://github.com/Bellocci/github-ci-example/actions/workflows/maven.yml/badge.svg)](https://github.com/Bellocci/github-ci-example/actions/workflows/maven.yml)
+[![Coverage Status](https://coveralls.io/repos/github/Bellocci/github-ci-example/badge.svg?branch=master)](https://coveralls.io/github/Bellocci/github-ci-example?branch=master)
